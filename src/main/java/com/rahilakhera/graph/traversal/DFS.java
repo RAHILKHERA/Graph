@@ -11,11 +11,11 @@ import java.util.Set;
 import com.rahilakhera.graph.graph.Graph;
 
 public class DFS {
-     private Graph graph;
+    private Graph graph;
     private Set<Integer> visited; 
 
 
-    DFS(Graph graph) {
+    public DFS(Graph graph) {
         this.graph = graph;
         this.visited = new HashSet<>();
     }
