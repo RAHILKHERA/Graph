@@ -33,7 +33,7 @@ public class Graph {
     }
 
     public List<Integer> getNegihbors (int source) {
-        return adjancencyList.getOrDefault(adjancencyList, new ArrayList<>());
+        return adjancencyList.getOrDefault(source, new ArrayList<>());
     }
 
     public Set<Integer> getNodes () {
