@@ -42,12 +42,15 @@ public class BFS {
         while (!queue.isEmpty()) {
 
             int node = queue.poll();
+
+            if (!visited.contains(node)) {
+                result.add(node);    
+            }
             visited.add(node);
-            result.add(node);
             List<Integer> neighbors = graph.getNegihbors(node);
             for (int neighbor : neighbors) {
                 if (!visited.contains(neighbor)) {
-                    queue.add(neighbor);
+                    queue.offer(neighbor);
                 }
             }
         }
