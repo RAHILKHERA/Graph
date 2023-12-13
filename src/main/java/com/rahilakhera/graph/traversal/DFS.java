@@ -1,6 +1,10 @@
 /**
  * @author Rahil Khera
-*/
+ * @email rahilakhera@gmail.com
+ * @create date 12-Dec-2023 15:23:57
+ * @desc Depth First Search Algorithm 
+ */
+
 package com.rahilakhera.graph.traversal;
 
 import java.util.HashSet;
