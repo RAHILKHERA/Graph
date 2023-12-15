@@ -36,11 +36,11 @@ public class Graph {
         adjancencyList.computeIfAbsent(source, vertex -> new ArrayList<>()).add(new Edge(destination, weight));
         
         if (!isDirected) {
-            adjancencyList.computeIfAbsent(destination, vertex -> new ArrayList<>()).add(new Edge(destination, weight));
+            adjancencyList.computeIfAbsent(destination, vertex -> new ArrayList<>()).add(new Edge(source, weight));
         }
     }
 
-    public List<Edge> getNegihbors (int source) {
+    public List<Edge> getNeighbors (int source) {
         return adjancencyList.getOrDefault(source, new ArrayList<>());
     }
 
