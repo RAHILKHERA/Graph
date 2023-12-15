@@ -41,7 +41,7 @@ public class DFS {
 
         visited.add(source);
 
-        List<Edge> neighbors = graph.getNegihbors(source);
+        List<Edge> neighbors = graph.getNeighbors(source);
         result.add(source);
 
         for (Edge neighbor : neighbors) {

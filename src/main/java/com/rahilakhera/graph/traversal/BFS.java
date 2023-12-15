@@ -48,7 +48,7 @@ public class BFS {
                 result.add(node);    
             }
             visited.add(node);
-            List<Edge> neighbors = graph.getNegihbors(node);
+            List<Edge> neighbors = graph.getNeighbors(node);
             for (Edge neighbor : neighbors) {
                 
                 if (!visited.contains(neighbor.getVertex())) {
