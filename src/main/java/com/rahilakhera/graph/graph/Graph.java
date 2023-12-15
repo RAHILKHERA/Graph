@@ -1,6 +1,10 @@
 /**
  * @author Rahil Khera
-*/
+ * @email rahilakhera@gmail.com
+ * @create date 16-Dec-2023 00:11:33
+ * @desc [Graph class]
+ */
+
 package com.rahilakhera.graph.graph;
 
 import java.util.ArrayList;
@@ -10,7 +14,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class Graph {
-    private Map<Integer, List<Integer>> adjancencyList;
+    private Map<Integer, List<Edge>> adjancencyList;
     private boolean isDirected; 
 
     public Graph () {
@@ -24,15 +28,19 @@ public class Graph {
     }
 
     public void addEdge(int source, int destination) {
+        addEdge(source, destination, 1);
+    }
 
-        adjancencyList.computeIfAbsent(source, vertex -> new ArrayList<>()).add(destination);
+    public void addEdge(int source, int destination, int weight) {
+
+        adjancencyList.computeIfAbsent(source, vertex -> new ArrayList<>()).add(new Edge(destination, weight));
         
         if (!isDirected) {
-            adjancencyList.computeIfAbsent(destination, vertex -> new ArrayList<>()).add(source);
+            adjancencyList.computeIfAbsent(destination, vertex -> new ArrayList<>()).add(new Edge(destination, weight));
         }
     }
 
-    public List<Integer> getNegihbors (int source) {
+    public List<Edge> getNegihbors (int source) {
         return adjancencyList.getOrDefault(source, new ArrayList<>());
     }
 
