@@ -15,7 +15,7 @@ package com.rahilakhera.graph.graph;
     private int weight;
 
     
-    Edge(int vertex, int weight) {
+    public Edge(int vertex, int weight) {
 
         this.vertex = vertex;
         this.weight = weight;
@@ -25,16 +25,8 @@ package com.rahilakhera.graph.graph;
         return vertex;
     }
 
-    public void setVertex(int vertex) {
-        this.vertex = vertex;
-    }
-
     public int getWeight() {
         return weight;
-    }
-
-    public void setWeight(int weight) {
-        this.weight = weight;
     }
 
     @Override
