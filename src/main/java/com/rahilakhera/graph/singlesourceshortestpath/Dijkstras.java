@@ -2,7 +2,7 @@
  * @author Rahil Khera
  * @email rahilakhera@gmail.com
  * @create date 16-Dec-2023 00:31:49
- * @desc [Dijkstra's Algorithm]
+ * @desc [Dijkstra's Algorithm. This implementation finds the shortest distance and the path from the provided source.]
  */
 
 package com.rahilakhera.graph.singlesourceshortestpath;
@@ -47,6 +47,7 @@ public class Dijkstras {
         for (int i = 0; i < graph.getTotalNodes(); i++) {
             paths.put(i, new ArrayList<>());
         }
+        
         shortestPath.put(source, 0);
         paths.computeIfAbsent(source, vertex -> new ArrayList<>()).add(source);
 
@@ -65,7 +66,14 @@ public class Dijkstras {
                 if (currentWeight > newWeight) {
 
                     shortestPath.put(edge.getVertex(), newWeight);
-
+                    queue.offer(new Edge(edge.getVertex(), newWeight));
+                    
+                    /*
+                     * Updating paths. 
+                     * First clear the exisiting path. 
+                     * Add, the path of the parent node. 
+                     * Add, the node itself to complete the path. 
+                     */
                     List<Integer> path = paths.get(edge.getVertex());
                     path.clear();
                     path.addAll(paths.get(node));
