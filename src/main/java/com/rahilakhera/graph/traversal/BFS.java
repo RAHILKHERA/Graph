@@ -13,6 +13,7 @@ import java.util.Set;
 import java.util.List;
 import java.util.Queue;
 
+import com.rahilakhera.graph.graph.Edge;
 import com.rahilakhera.graph.graph.Graph;
 
 public class BFS {
@@ -47,10 +48,11 @@ public class BFS {
                 result.add(node);    
             }
             visited.add(node);
-            List<Integer> neighbors = graph.getNegihbors(node);
-            for (int neighbor : neighbors) {
-                if (!visited.contains(neighbor)) {
-                    queue.offer(neighbor);
+            List<Edge> neighbors = graph.getNegihbors(node);
+            for (Edge neighbor : neighbors) {
+                
+                if (!visited.contains(neighbor.getVertex())) {
+                    queue.offer(neighbor.getVertex());
                 }
             }
         }

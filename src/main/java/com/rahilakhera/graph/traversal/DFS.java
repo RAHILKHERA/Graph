@@ -12,6 +12,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import com.rahilakhera.graph.graph.Edge;
 import com.rahilakhera.graph.graph.Graph;
 
 public class DFS {
@@ -40,13 +41,13 @@ public class DFS {
 
         visited.add(source);
 
-        List<Integer> neighbors = graph.getNegihbors(source);
+        List<Edge> neighbors = graph.getNegihbors(source);
         result.add(source);
 
-        for (Integer neighbor : neighbors) {
+        for (Edge neighbor : neighbors) {
 
-            if (!visited.contains(neighbor)) {
-                traversal(neighbor, result);
+            if (!visited.contains(neighbor.getVertex())) {
+                traversal(neighbor.getVertex(), result);
             }
             
         }
