@@ -13,25 +13,36 @@
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
   </properties>
-  <dependencies>
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-engine</artifactId>
-      <version>5.10.1</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
+  <dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.junit</groupId>
+				<artifactId>junit-bom</artifactId>
+				<version>5.10.1</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
-  <build>
-    <plugins>
-        <plugin>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <version>3.1.2</version>
-        </plugin>
-        <plugin>
+	<dependencies>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.2.1</version>
+			</plugin>
+      <plugin>
             <artifactId>maven-failsafe-plugin</artifactId>
             <version>3.1.2</version>
         </plugin>
-    </plugins>
-</build>
+		</plugins>
+	</build>
 </project>
