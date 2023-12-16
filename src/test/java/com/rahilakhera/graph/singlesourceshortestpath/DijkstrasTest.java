@@ -45,13 +45,12 @@ public class DijkstrasTest {
         assertEquals(Arrays.asList(0, 2), dijkstras.getPaths().get(2));
         assertEquals(Arrays.asList(0, 2, 3), dijkstras.getPaths().get(3));
 
-       
     }
 
     @Test
     void testUndirectedGraph() {
 
-         // Create an undirected graph
+        // Create an undirected graph
         Graph undirectedGraph = new Graph(false);
         undirectedGraph.addEdge(0, 1, 2);
         undirectedGraph.addEdge(0, 2, 4);
@@ -65,7 +64,8 @@ public class DijkstrasTest {
         // Find the shortest paths from source vertex 0
         Map<Integer, Integer> undirectedShortestPaths = undirectedDijkstras.findShortestPath(0);
 
-        // Check the correctness of the shortest paths and distances for the undirected graph
+        // Check the correctness of the shortest paths and distances for the undirected
+        // graph
         assertEquals(0, undirectedShortestPaths.get(0));
         assertEquals(2, undirectedShortestPaths.get(1));
         assertEquals(3, undirectedShortestPaths.get(2));
@@ -76,6 +76,50 @@ public class DijkstrasTest {
         assertEquals(Arrays.asList(0, 1), undirectedDijkstras.getPaths().get(1));
         assertEquals(Arrays.asList(0, 1, 2), undirectedDijkstras.getPaths().get(2));
         assertEquals(Arrays.asList(0, 1, 2, 3), undirectedDijkstras.getPaths().get(3));
-    } 
-}
+    }
 
+    @Test
+    void testDijkstraAlgorithmForDisconnectedGraph() {
+        // Create a disconnected graph
+        Graph disconnectedGraph = new Graph(false);
+        disconnectedGraph.addEdge(0, 1, 2);
+        disconnectedGraph.addEdge(2, 3, 4);
+
+        // Create an instance of Dijkstra's algorithm
+        Dijkstras dijkstras = new Dijkstras(disconnectedGraph);
+
+        // Test for source vertex 0 in a disconnected graph
+        Map<Integer, Integer> shortestPaths = dijkstras.findShortestPath(0);
+
+        // Check that all vertices are reachable from the source
+        assertEquals(0, shortestPaths.getOrDefault(0, Integer.MAX_VALUE));
+        assertEquals(2, shortestPaths.getOrDefault(1, Integer.MAX_VALUE));
+
+        // Check that unreachable vertices have a distance of Integer.MAX_VALUE
+        assertEquals(Integer.MAX_VALUE, shortestPaths.getOrDefault(2, Integer.MAX_VALUE));
+        assertEquals(Integer.MAX_VALUE, shortestPaths.getOrDefault(3, Integer.MAX_VALUE));
+    }
+
+    @Test
+    void testDijkstraAlgorithmForLargeGraph() {
+        // Create a large graph
+        Graph largeGraph = new Graph(false);
+        for (int i = 0; i < 100; i++) {
+            for (int j = i + 1; j < 100; j++) {
+                largeGraph.addEdge(i, j, i + j);
+            }
+        }
+
+        // Create an instance of Dijkstra's algorithm
+        Dijkstras dijkstras = new Dijkstras(largeGraph);
+
+        // Test for source vertex 0 in a large graph
+        Map<Integer, Integer> shortestPaths = dijkstras.findShortestPath(0);
+
+        // Check that all vertices are reachable from the source
+        assertEquals(0, shortestPaths.get(0));
+        for (int i = 1; i < 100; i++) {
+            assertEquals(i, shortestPaths.get(i));
+        }
+    }
+}
