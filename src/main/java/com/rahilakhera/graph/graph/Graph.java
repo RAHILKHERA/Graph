@@ -37,6 +37,8 @@ public class Graph {
         
         if (!isDirected) {
             adjancencyList.computeIfAbsent(destination, vertex -> new ArrayList<>()).add(new Edge(source, weight));
+        } else {
+            adjancencyList.computeIfAbsent(destination, vertex -> new ArrayList<>());
         }
     }
 
