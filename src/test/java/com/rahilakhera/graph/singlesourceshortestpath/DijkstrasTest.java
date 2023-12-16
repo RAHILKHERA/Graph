@@ -18,7 +18,7 @@ import java.util.Map;
 public class DijkstrasTest {
 
     @Test
-    void testDijkstraAlgorithm() {
+    void testDirectedDijkstraAlgorithm() {
         // Create a directed graph
         Graph directedGraph = new Graph(true);
         directedGraph.addEdge(0, 1, 4);
@@ -41,11 +41,17 @@ public class DijkstrasTest {
 
         // Check the correctness of the paths
         assertEquals(Arrays.asList(0), dijkstras.getPaths().get(0));
-        assertEquals(Arrays.asList(0, 2), dijkstras.getPaths().get(1));
-        assertEquals(Arrays.asList(0), dijkstras.getPaths().get(2));
+        assertEquals(Arrays.asList(0, 1), dijkstras.getPaths().get(1));
+        assertEquals(Arrays.asList(0, 2), dijkstras.getPaths().get(2));
         assertEquals(Arrays.asList(0, 2, 3), dijkstras.getPaths().get(3));
 
-        // Create an undirected graph
+       
+    }
+
+    @Test
+    void testUndirectedGraph() {
+
+         // Create an undirected graph
         Graph undirectedGraph = new Graph(false);
         undirectedGraph.addEdge(0, 1, 2);
         undirectedGraph.addEdge(0, 2, 4);
@@ -62,14 +68,14 @@ public class DijkstrasTest {
         // Check the correctness of the shortest paths and distances for the undirected graph
         assertEquals(0, undirectedShortestPaths.get(0));
         assertEquals(2, undirectedShortestPaths.get(1));
-        assertEquals(4, undirectedShortestPaths.get(2));
-        assertEquals(7, undirectedShortestPaths.get(3));
+        assertEquals(3, undirectedShortestPaths.get(2));
+        assertEquals(6, undirectedShortestPaths.get(3));
 
         // Check the correctness of the paths for the undirected graph
         assertEquals(Arrays.asList(0), undirectedDijkstras.getPaths().get(0));
         assertEquals(Arrays.asList(0, 1), undirectedDijkstras.getPaths().get(1));
-        assertEquals(Arrays.asList(0, 2), undirectedDijkstras.getPaths().get(2));
-        assertEquals(Arrays.asList(0, 2, 3), undirectedDijkstras.getPaths().get(3));
-    }
+        assertEquals(Arrays.asList(0, 1, 2), undirectedDijkstras.getPaths().get(2));
+        assertEquals(Arrays.asList(0, 1, 2, 3), undirectedDijkstras.getPaths().get(3));
+    } 
 }
 
