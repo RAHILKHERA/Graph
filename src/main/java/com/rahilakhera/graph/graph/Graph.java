@@ -38,6 +38,12 @@ public class Graph {
         if (!isDirected) {
             adjancencyList.computeIfAbsent(destination, vertex -> new ArrayList<>()).add(new Edge(source, weight));
         } else {
+
+            /**
+             * In case, of Directed graph, if the node has no outgoing edge,
+             * this will make an empty arraylist to complete the adjancency list. 
+             */
+
             adjancencyList.computeIfAbsent(destination, vertex -> new ArrayList<>());
         }
     }
