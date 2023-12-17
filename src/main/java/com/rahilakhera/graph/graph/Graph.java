@@ -16,15 +16,18 @@ import java.util.Set;
 public class Graph {
     private Map<Integer, List<Edge>> adjancencyList;
     private boolean isDirected; 
+    private List<Edge> edgeList;
 
     public Graph () {
         this.adjancencyList = new HashMap<>();
-        this.isDirected = false; 
+        this.isDirected = false;
+        this.edgeList = new ArrayList<>(); 
     }
 
     public Graph(boolean isDirected) {
         this.adjancencyList = new HashMap<>();
         this.isDirected = isDirected;
+        this.edgeList = new ArrayList<>();
     }
 
     public void addEdge(int source, int destination) {
@@ -33,12 +36,14 @@ public class Graph {
 
     public void addEdge(int source, int destination, int weight) {
 
-        adjancencyList.computeIfAbsent(source, vertex -> new ArrayList<>()).add(new Edge(destination, weight));
-        
-        if (!isDirected) {
-            adjancencyList.computeIfAbsent(destination, vertex -> new ArrayList<>()).add(new Edge(source, weight));
-        } else {
 
+        Edge edge = new Edge(destination, weight, source); 
+        edgeList.add(edge);
+
+        adjancencyList.computeIfAbsent(source, vertex -> new ArrayList<>()).add(edge);
+        if (!isDirected) {
+            adjancencyList.computeIfAbsent(destination, vertex -> new ArrayList<>()).add(new Edge(source, weight, destination));
+        } else {
             /**
              * In case, of Directed graph, if the node has no outgoing edge,
              * this will make an empty arraylist to complete the adjancency list. 
@@ -59,4 +64,14 @@ public class Graph {
     public int getTotalNodes() {
         return adjancencyList.keySet().size();
     }
+
+    public List<Edge> getEdges () {
+        return edgeList;
+    }
+
+    public boolean isDirected () {
+        return isDirected;
+    }
+
+    
 }
