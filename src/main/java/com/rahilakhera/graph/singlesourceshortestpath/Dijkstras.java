@@ -40,13 +40,25 @@ public class Dijkstras {
 
         Map<Integer, Integer> shortestPath = new HashMap<>();
 
+        /**
+         * If graph is empty, return an empty list. 
+         */
         if (graph.getNodes().size() == 0) {
             return shortestPath;
         }
 
+        /**
+         * Intialzing the paths structure to store the paths. 
+         */
+
         for (int i = 0; i < graph.getTotalNodes(); i++) {
             paths.put(i, new ArrayList<>());
         }
+
+         /**
+         * Intialize the distance to source vertex to 0 and other vertexes to infinity. 
+         * Also add source to its paths. 
+         */
         
         shortestPath.put(source, 0);
         paths.computeIfAbsent(source, vertex -> new ArrayList<>()).add(source);
