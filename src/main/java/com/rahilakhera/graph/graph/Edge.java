@@ -13,12 +13,19 @@ package com.rahilakhera.graph.graph;
 
     private int vertex;
     private int weight;
+    private int destination;
 
     
     public Edge(int vertex, int weight) {
 
         this.vertex = vertex;
         this.weight = weight;
+    }
+
+    public Edge(int vertex, int weight, int destination) {
+        this.vertex = vertex;
+        this.weight = weight;
+        this.destination = destination;
     }
 
     public int getVertex() {
@@ -29,9 +36,26 @@ package com.rahilakhera.graph.graph;
         return weight;
     }
 
+    public int getDestination() {
+        return destination;
+    }
+
     @Override
     public int compareTo(Edge o) {
         return Integer.compare(weight, o.getWeight());
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("[ ")
+                .append(vertex)
+                .append(" : ")
+                .append(destination)
+                .append(" : ")
+                .append(weight)
+                .append("]");
+        return builder.toString();
     }
 
 }
