@@ -5,3 +5,4 @@ Graph Algorithms
    * BFS
 2) Single Source Sortest Path
    * Dijkstra's Algorithm
+   * Bellman-Ford Algorithm
