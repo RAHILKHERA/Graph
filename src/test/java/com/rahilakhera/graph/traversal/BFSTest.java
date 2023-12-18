@@ -1,3 +1,10 @@
+/**
+ * @author Rahil Khera
+ * @email rahilakhera@gmail.com
+ * @create date 13-Dec-2023 16:40:40
+ * @desc [BFSTest, Test Cases to test working of BFS.]
+ */
+
 package com.rahilakhera.graph.traversal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -10,7 +17,7 @@ import org.junit.jupiter.api.Test;
 import com.rahilakhera.graph.graph.Graph;
 
 public class BFSTest {
-     @Test
+    @Test
     public void testBasicCase() {
         Graph graph = new Graph();
         graph.addEdge(1, 2);
