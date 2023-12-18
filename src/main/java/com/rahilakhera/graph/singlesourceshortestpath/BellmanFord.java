@@ -60,7 +60,7 @@ public class BellmanFord {
          * Relax through all edges for number of vertex -1 times.
          */
 
-         for (int i = 0; i < graph.getTotalNodes() - 1; i++) {
+        for (int i = 0; i < graph.getTotalNodes() - 1; i++) {
             for (Edge edge : graph.getEdges()) {
 
                 int source = edge.getVertex();
@@ -68,10 +68,22 @@ public class BellmanFord {
                 int weight = edge.getWeight();
                 int sourceWeight = shortestPath.getOrDefault(source, Integer.MAX_VALUE);
                 int destinationWeight = shortestPath.getOrDefault(destination, Integer.MAX_VALUE);
-                
+
                 if (sourceWeight != Integer.MAX_VALUE && sourceWeight + weight < destinationWeight) {
                     destinationWeight = sourceWeight + weight;
                     shortestPath.put(destination, destinationWeight);
+
+                    /*
+                     * Updating paths.
+                     * First clear the exisiting path.
+                     * Add, the path of the parent node.
+                     * Add, the node itself to complete the path.
+                     */
+                    List<Integer> path = paths.get(destination);
+                    path.clear();
+                    path.addAll(paths.get(source));
+                    path.add(destination);
+                    paths.put(destination, path);
                 }
                 // Consider the reverse direction as well for undirected graph
                 if (!graph.isDirected()) {
@@ -79,13 +91,19 @@ public class BellmanFord {
                     if (destinationWeight != Integer.MAX_VALUE && destinationWeight + weight < sourceWeight) {
                         sourceWeight = destinationWeight + weight;
                         shortestPath.put(source, sourceWeight);
+
+                        List<Integer> path = paths.get(source);
+                        path.clear();
+                        path.addAll(paths.get(destination));
+                        path.add(source);
+                        paths.put(source, path);
                     }
-  
+
                 }
-                
+
             }
         }
-       
+
         for (Edge edge : graph.getEdges()) {
 
             int source = edge.getVertex();
@@ -94,16 +112,17 @@ public class BellmanFord {
             int sourceWeight = shortestPath.getOrDefault(source, Integer.MAX_VALUE);
             int destinationWeight = shortestPath.getOrDefault(destination, Integer.MAX_VALUE);
 
-            //If it is a negative cycle, return null;    
+            // If it is a negative cycle, return null;
             if (sourceWeight != Integer.MAX_VALUE && sourceWeight + weight < destinationWeight) {
                 return null;
             }
 
-            //For directed graph check reverse edge too. 
-            if (!graph.isDirected() && destinationWeight != Integer.MAX_VALUE && destinationWeight + weight < sourceWeight) {
+            // For directed graph check reverse edge too.
+            if (!graph.isDirected() && destinationWeight != Integer.MAX_VALUE
+                    && destinationWeight + weight < sourceWeight) {
                 return null;
             }
-  
+
         }
 
         return shortestPath;
