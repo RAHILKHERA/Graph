@@ -6,23 +6,21 @@
  * cost of the edge]
  */
 
-
 package com.rahilakhera.graph.graph;
 
- public class  Edge implements Comparable<Edge>{
+public class Edge implements Comparable<Edge> {
 
     private int vertex;
     private int weight;
     private int destination;
 
-    
     public Edge(int vertex, int weight) {
 
         this.vertex = vertex;
         this.weight = weight;
     }
 
-    public Edge(int vertex, int weight, int destination) {
+    public Edge(int vertex, int destination, int weight) {
         this.vertex = vertex;
         this.weight = weight;
         this.destination = destination;
