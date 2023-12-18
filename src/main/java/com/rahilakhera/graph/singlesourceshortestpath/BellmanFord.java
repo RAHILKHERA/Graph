@@ -63,8 +63,8 @@ public class BellmanFord {
         for (int i = 0; i < graph.getTotalNodes() - 1; i++) {
             for (Edge edge : graph.getEdges()) {
 
-                int source = edge.getVertex();
-                int destination = edge.getDestination();
+                int source = edge.getDestination();
+                int destination = edge.getVertex();
                 int weight = edge.getWeight();
                 int sourceWeight = shortestPath.getOrDefault(source, Integer.MAX_VALUE);
                 int destinationWeight = shortestPath.getOrDefault(destination, Integer.MAX_VALUE);
@@ -106,8 +106,8 @@ public class BellmanFord {
 
         for (Edge edge : graph.getEdges()) {
 
-            int source = edge.getVertex();
-            int destination = edge.getDestination();
+            int source = edge.getDestination();
+            int destination = edge.getVertex();
             int weight = edge.getWeight();
             int sourceWeight = shortestPath.getOrDefault(source, Integer.MAX_VALUE);
             int destinationWeight = shortestPath.getOrDefault(destination, Integer.MAX_VALUE);
