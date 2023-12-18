@@ -20,7 +20,7 @@ public class Edge implements Comparable<Edge> {
         this.weight = weight;
     }
 
-    public Edge(int vertex, int destination, int weight) {
+    public Edge(int vertex, int weight, int destination) {
         this.vertex = vertex;
         this.weight = weight;
         this.destination = destination;
