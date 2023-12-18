@@ -17,6 +17,8 @@ public class Graph {
     private Map<Integer, List<Edge>> adjancencyList;
     private boolean isDirected;
     private List<Edge> edgeList;
+    private int[][] adjacencyMatrix;
+    private boolean adjacencyMatrixInitialized;
 
     public Graph() {
         this.adjancencyList = new HashMap<>();
@@ -36,7 +38,7 @@ public class Graph {
 
     public void addEdge(int source, int destination, int weight) {
 
-        Edge edge = new Edge(source, destination, weight);
+        Edge edge = new Edge(destination, weight, source);
         edgeList.add(edge);
 
         adjancencyList.computeIfAbsent(source, vertex -> new ArrayList<>()).add(edge);
@@ -71,6 +73,47 @@ public class Graph {
 
     public boolean isDirected() {
         return isDirected;
+    }
+
+    public void initAdjancencyMatrix() {
+
+        int n = getTotalNodes();
+        adjacencyMatrix = new int[n][n];
+
+        for (int i = 0; i < n; i++) {
+
+            for (int j = 0; j < n; j++) {
+
+                if (i == j) {
+                    adjacencyMatrix[i][j] = 0;
+                } else {
+                    adjacencyMatrix[i][j] = Integer.MAX_VALUE;
+                }
+            }
+        }
+
+        for (Edge edge : getEdges()) {
+            int source = edge.getVertex();
+            int destination = edge.getDestination();
+            int weight = edge.getWeight();
+
+            adjacencyMatrix[source][destination] = weight;
+
+            if (!isDirected) {
+                adjacencyMatrix[destination][source] = weight;
+            }
+        }
+
+        adjacencyMatrixInitialized = true;
+
+    }
+
+    public int[][] getAdjancencyMatrix() {
+        return adjacencyMatrix;
+    }
+
+    public boolean isAdjancenyMatrixInitialized() {
+        return adjacencyMatrixInitialized;
     }
 
 }
