@@ -11,8 +11,12 @@ import org.junit.jupiter.api.Test;
 
 import com.rahilakhera.graph.graph.Graph;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-// import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.util.Set;
 
 public class FloydWarshallTest {
 
@@ -34,63 +38,84 @@ public class FloydWarshallTest {
         assertArrayEquals(expected, floydWarshall.getAllShortesPath());
     }
 
-    // @Test
-    // void graphWithNegativeWeight() {
-    // Graph graph = new Graph();
-    // graph.addEdge(0, 1, 1);
-    // graph.addEdge(1, 2, -3);
-    // graph.addEdge(2, 3, 2);
-    // graph.addEdge(3, 0, -2);
+    @Test
+    void graphWithNegativeWeight() {
+        Graph graph = new Graph();
+        graph.addEdge(0, 1, 1);
+        graph.addEdge(1, 2, -3);
+        graph.addEdge(2, 3, 2);
+        graph.addEdge(3, 0, -2);
 
-    // FloydWarshall floydWarshall = new FloydWarshall(graph);
+        FloydWarshall floydWarshall = new FloydWarshall(graph);
 
-    // int[][] expected = {
-    // { 0, 1, -2, 0 },
-    // { 3, 0, -3, 2 },
-    // { 1, 2, 0, 3 },
-    // { -1, 0, 1, 0 }
-    // };
+        assertThrows(RuntimeException.class, () -> floydWarshall.getAllShortesPath());
+    }
 
-    // assertArrayEquals(expected, floydWarshall.getAllShortesPath());
-    // }
+    @Test
+    void disconnectedGraph() {
+        Graph graph = new Graph(true);
+        graph.addEdge(1, 0, 2);
+        graph.addEdge(3, 2, 4);
 
-    // @Test
-    // void disconnectedGraph() {
-    // Graph graph = new Graph();
+        int[][] expected = {
+                { 0, 2, Integer.MAX_VALUE, Integer.MAX_VALUE },
+                { Integer.MAX_VALUE, 0, Integer.MAX_VALUE, Integer.MAX_VALUE },
+                { Integer.MAX_VALUE, Integer.MAX_VALUE, 0, 4 },
+                { Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, 0 }
+        };
 
-    // int[][] expected = {
-    // { 0, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE },
-    // { Integer.MAX_VALUE, 0, Integer.MAX_VALUE, Integer.MAX_VALUE },
-    // { Integer.MAX_VALUE, Integer.MAX_VALUE, 0, Integer.MAX_VALUE },
-    // { Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, 0 }
-    // };
+        FloydWarshall floydWarshall = new FloydWarshall(graph);
+        assertArrayEquals(expected, floydWarshall.getAllShortesPath());
+    }
 
-    // assertArrayEquals(expected, FloydWarshall.run(graph));
-    // }
+    @Test
+    void graphWithNegativeCycle() {
+        Graph graph = new Graph();
+        graph.addEdge(0, 1, -1);
+        graph.addEdge(1, 2, -1);
+        graph.addEdge(2, 0, -1);
 
-    // @Test
-    // void graphWithNegativeCycle() {
-    // Graph graph = new Graph(3);
-    // graph.addEdge(0, 1, -1);
-    // graph.addEdge(1, 2, -1);
-    // graph.addEdge(2, 0, -1);
+        FloydWarshall floydWarshall = new FloydWarshall(graph);
+        assertThrows(RuntimeException.class, () -> floydWarshall.getAllShortesPath());
+    }
 
-    // assertThrows(RuntimeException.class, () -> FloydWarshall.run(graph));
-    // }
+    @Test
+    void basicDirectedGraphWithPaths() {
 
-    // @Test
-    // void graphWithSelfLoops() {
-    // Graph graph = new Graph(3);
-    // graph.addEdge(0, 1, 2);
-    // graph.addEdge(1, 1, 1); // Self-loop
-    // graph.addEdge(2, 2, 3);
+        Graph graph = new Graph(true);
+        graph.addEdge(1, 0, 2);
+        graph.addEdge(2, 0, 6);
+        graph.addEdge(3, 1, 1);
+        graph.addEdge(3, 2, 4);
+        graph.addEdge(2, 1, 3);
 
-    // int[][] expected = {
-    // { 0, 2, Integer.MAX_VALUE },
-    // { Integer.MAX_VALUE, 1, Integer.MAX_VALUE },
-    // { Integer.MAX_VALUE, Integer.MAX_VALUE, 3 }
-    // };
+        FloydWarshall floydWarshall = new FloydWarshall(graph);
 
-    // assertArrayEquals(expected, FloydWarshall.run(graph));
-    // }
+        int[][] expected = {
+                { 0, 2, 5, 3 },
+                { Integer.MAX_VALUE, 0, 3, 1 },
+                { Integer.MAX_VALUE, Integer.MAX_VALUE, 0, 4 },
+                { Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, 0 }
+        };
+
+        assertAll("Check distances and paths",
+                () -> assertArrayEquals(expected, floydWarshall.getAllShortesPath()),
+                () -> assertEquals(Set.of(0), floydWarshall.getPaths().get(0).get(0)),
+                () -> assertEquals(Set.of(0, 1), floydWarshall.getPaths().get(0).get(1)),
+                () -> assertEquals(Set.of(0, 1, 2), floydWarshall.getPaths().get(0).get(2)),
+                () -> assertEquals(Set.of(0, 1, 3), floydWarshall.getPaths().get(0).get(3)),
+                () -> assertEquals(Set.of(), floydWarshall.getPaths().get(1).get(0)),
+                () -> assertEquals(Set.of(1), floydWarshall.getPaths().get(1).get(1)),
+                () -> assertEquals(Set.of(1, 2), floydWarshall.getPaths().get(1).get(2)),
+                () -> assertEquals(Set.of(1, 3), floydWarshall.getPaths().get(1).get(3)),
+                () -> assertEquals(Set.of(), floydWarshall.getPaths().get(2).get(0)),
+                () -> assertEquals(Set.of(), floydWarshall.getPaths().get(2).get(1)),
+                () -> assertEquals(Set.of(2), floydWarshall.getPaths().get(2).get(2)),
+                () -> assertEquals(Set.of(2, 3), floydWarshall.getPaths().get(2).get(3)),
+                () -> assertEquals(Set.of(), floydWarshall.getPaths().get(3).get(0)),
+                () -> assertEquals(Set.of(), floydWarshall.getPaths().get(3).get(1)),
+                () -> assertEquals(Set.of(), floydWarshall.getPaths().get(3).get(2)),
+                () -> assertEquals(Set.of(3), floydWarshall.getPaths().get(3).get(3)));
+    }
+
 }
