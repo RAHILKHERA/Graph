@@ -54,8 +54,8 @@ public class FloydWarshallTest {
     @Test
     void disconnectedGraph() {
         Graph graph = new Graph(true);
-        graph.addEdge(1, 0, 2);
-        graph.addEdge(3, 2, 4);
+        graph.addEdge(0, 1, 2);
+        graph.addEdge(2, 3, 4);
 
         int[][] expected = {
                 { 0, 2, Integer.MAX_VALUE, Integer.MAX_VALUE },
@@ -83,11 +83,11 @@ public class FloydWarshallTest {
     void basicDirectedGraphWithPaths() {
 
         Graph graph = new Graph(true);
-        graph.addEdge(1, 0, 2);
-        graph.addEdge(2, 0, 6);
-        graph.addEdge(3, 1, 1);
-        graph.addEdge(3, 2, 4);
-        graph.addEdge(2, 1, 3);
+        graph.addEdge(0, 1, 2);
+        graph.addEdge(0, 2, 6);
+        graph.addEdge(1, 3, 1);
+        graph.addEdge(2, 3, 4);
+        graph.addEdge(1, 2, 3);
 
         FloydWarshall floydWarshall = new FloydWarshall(graph);
 
