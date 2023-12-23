@@ -27,8 +27,6 @@ public class Dijkstras {
 
     public Dijkstras(Graph graph) {
         this.graph = graph;
-        this.visited = new HashSet<>();
-        this.paths = new HashMap<>();
         this.queue = new PriorityQueue<>();
     }
 
@@ -47,9 +45,12 @@ public class Dijkstras {
             return shortestPath;
         }
 
+        this.visited = new HashSet<>();
         /**
          * Intialzing the paths structure to store the paths.
          */
+
+        this.paths = new HashMap<>();
         for (int node : graph.getNodes()) {
             paths.put(node, new ArrayList<>());
         }
