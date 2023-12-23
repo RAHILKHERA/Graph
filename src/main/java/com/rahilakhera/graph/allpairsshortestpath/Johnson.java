@@ -14,6 +14,7 @@ package com.rahilakhera.graph.allpairsshortestpath;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.rahilakhera.graph.graph.Edge;
 import com.rahilakhera.graph.graph.Graph;
@@ -67,8 +68,9 @@ public class Johnson {
              * Add the edges from the dummy vertex to all the vertices with weight zero.
              * The incoming degree of the dummy vertex will be 0
              */
+            Set<Integer> exisitingNodes = graph.getNodes();
 
-            for (Integer vertex : graph.getNodes()) {
+            for (Integer vertex : exisitingNodes) {
                 graph.addEdge(-1, vertex, 0);
             }
 
@@ -90,6 +92,8 @@ public class Johnson {
              * Step 3 : Rewrite the weights of all the edges using the following formula.
              * w'(u,v) = w(u,v) + h(u) - h(v);
              */
+
+            graph.removeVertex(-1);
 
             for (Edge edge : graph.getEdges()) {
 
