@@ -42,7 +42,7 @@ public class Graph {
 
     public void addEdge(int source, int destination, int weight) {
 
-        Edge edge = new Edge(destination, weight, source);
+        Edge edge = new Edge(source, destination, weight);
         edgeList.add(edge);
 
         this.vertexSet.add(destination);
@@ -51,7 +51,7 @@ public class Graph {
         adjacencyList.computeIfAbsent(source, vertex -> new ArrayList<>()).add(edge);
         if (!isDirected) {
             adjacencyList.computeIfAbsent(destination, vertex -> new ArrayList<>())
-                    .add(new Edge(source, weight, destination));
+                    .add(new Edge(destination, source, weight));
         } else {
             /**
              * In case, of Directed graph, if the node has no outgoing edge,
@@ -67,7 +67,9 @@ public class Graph {
     }
 
     public Set<Integer> getNodes() {
-        return adjacencyList.keySet();
+        Set<Integer> copiedSet = new HashSet<>();
+        copiedSet.addAll(adjacencyList.keySet());
+        return copiedSet;
     }
 
     public int getTotalNodes() {
@@ -75,7 +77,7 @@ public class Graph {
     }
 
     public List<Edge> getEdges() {
-        return edgeList;
+        return new ArrayList<>(edgeList);
     }
 
     public boolean isDirected() {
@@ -138,9 +140,19 @@ public class Graph {
         if (removed) {
 
             adjacencyList.remove(vertex);
+            /**
+             * Update values of adjacency list.
+             */
+
             for (Map.Entry<Integer, List<Edge>> entry : adjacencyList.entrySet()) {
                 entry.getValue().removeIf(edge -> edge.getDestination() == vertex || edge.getVertex() == vertex);
             }
+
+            /**
+             * update edge list.
+             */
+            edgeList.removeIf(edge -> edge.getDestination() == vertex || edge.getVertex() == vertex);
+
         }
         return removed;
     }
