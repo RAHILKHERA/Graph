@@ -45,8 +45,9 @@ public class BellmanFord {
          * Intialzing the paths structure to store the paths.
          */
 
-        for (int i = 0; i < graph.getTotalNodes(); i++) {
-            paths.put(i, new ArrayList<>());
+        this.paths = new HashMap<>();
+        for (int node : graph.getNodes()) {
+            paths.put(node, new ArrayList<>());
         }
 
         /**
@@ -63,8 +64,8 @@ public class BellmanFord {
         for (int i = 0; i < graph.getTotalNodes() - 1; i++) {
             for (Edge edge : graph.getEdges()) {
 
-                int source = edge.getDestination();
-                int destination = edge.getVertex();
+                int source = edge.getVertex();
+                int destination = edge.getDestination();
                 int weight = edge.getWeight();
                 int sourceWeight = shortestPath.getOrDefault(source, Integer.MAX_VALUE);
                 int destinationWeight = shortestPath.getOrDefault(destination, Integer.MAX_VALUE);
@@ -106,8 +107,8 @@ public class BellmanFord {
 
         for (Edge edge : graph.getEdges()) {
 
-            int source = edge.getDestination();
-            int destination = edge.getVertex();
+            int source = edge.getVertex();
+            int destination = edge.getDestination();
             int weight = edge.getWeight();
             int sourceWeight = shortestPath.getOrDefault(source, Integer.MAX_VALUE);
             int destinationWeight = shortestPath.getOrDefault(destination, Integer.MAX_VALUE);
