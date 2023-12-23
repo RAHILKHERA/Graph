@@ -79,6 +79,24 @@ public class DijkstrasTest {
     }
 
     @Test
+    void testUndirectedGraph2() {
+
+        Graph graph = new Graph(false);
+        graph.addEdge(1, 2, 3);
+        graph.addEdge(2, 3, 5);
+        graph.addEdge(1, 3, 9);
+        Dijkstras undirectedDijkstras = new Dijkstras(graph);
+
+        Map<Integer, Integer> undirectedShortestPaths = undirectedDijkstras.findShortestPath(1);
+
+        assertEquals(0, undirectedShortestPaths.get(1));
+        assertEquals(3, undirectedShortestPaths.get(2));
+        assertEquals(8, undirectedShortestPaths.get(3));
+
+        assertEquals(Arrays.asList(1, 2, 3), undirectedDijkstras.getPaths().get(3));
+    }
+
+    @Test
     void testDijkstraAlgorithmForDisconnectedGraph() {
         // Create a disconnected graph
         Graph disconnectedGraph = new Graph(false);
