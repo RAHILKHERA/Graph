@@ -29,7 +29,7 @@ public class BFS {
     }
 
     public List<Integer> traversal(int source) {
-        
+
         List<Integer> result = new ArrayList<>();
         /**
          * Empty graph
@@ -45,14 +45,14 @@ public class BFS {
             int node = queue.poll();
 
             if (!visited.contains(node)) {
-                result.add(node);    
+                result.add(node);
             }
             visited.add(node);
             List<Edge> neighbors = graph.getNeighbors(node);
             for (Edge neighbor : neighbors) {
-                
-                if (!visited.contains(neighbor.getVertex())) {
-                    queue.offer(neighbor.getVertex());
+
+                if (!visited.contains(neighbor.getDestination())) {
+                    queue.offer(neighbor.getDestination());
                 }
             }
         }
