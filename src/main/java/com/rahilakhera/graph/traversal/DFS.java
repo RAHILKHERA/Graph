@@ -17,24 +17,22 @@ import com.rahilakhera.graph.graph.Graph;
 
 public class DFS {
     private Graph graph;
-    private Set<Integer> visited; 
-
+    private Set<Integer> visited;
 
     public DFS(Graph graph) {
         this.graph = graph;
         this.visited = new HashSet<>();
     }
 
-
     public List<Integer> dfs(int source) {
-        List <Integer> result = new LinkedList<>();
+        List<Integer> result = new LinkedList<>();
 
         if (graph.getNodes().size() == 0) {
             return result;
         }
-        
+
         traversal(source, result);
-        return result; 
+        return result;
     }
 
     private void traversal(int source, List<Integer> result) {
@@ -46,10 +44,10 @@ public class DFS {
 
         for (Edge neighbor : neighbors) {
 
-            if (!visited.contains(neighbor.getVertex())) {
-                traversal(neighbor.getVertex(), result);
+            if (!visited.contains(neighbor.getDestination())) {
+                traversal(neighbor.getDestination(), result);
             }
-            
+
         }
     }
 }
