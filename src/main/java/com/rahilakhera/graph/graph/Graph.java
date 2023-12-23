@@ -9,27 +9,31 @@ package com.rahilakhera.graph.graph;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 public class Graph {
-    private Map<Integer, List<Edge>> adjancencyList;
+    private Map<Integer, List<Edge>> adjacencyList;
     private boolean isDirected;
     private List<Edge> edgeList;
     private int[][] adjacencyMatrix;
     private boolean adjacencyMatrixInitialized;
+    private Set<Integer> vertexSet;
 
     public Graph() {
-        this.adjancencyList = new HashMap<>();
+        this.adjacencyList = new HashMap<>();
         this.isDirected = false;
         this.edgeList = new ArrayList<>();
+        this.vertexSet = new HashSet<>();
     }
 
     public Graph(boolean isDirected) {
-        this.adjancencyList = new HashMap<>();
+        this.adjacencyList = new HashMap<>();
         this.isDirected = isDirected;
         this.edgeList = new ArrayList<>();
+        this.vertexSet = new HashSet<>();
     }
 
     public void addEdge(int source, int destination) {
@@ -41,9 +45,12 @@ public class Graph {
         Edge edge = new Edge(destination, weight, source);
         edgeList.add(edge);
 
-        adjancencyList.computeIfAbsent(source, vertex -> new ArrayList<>()).add(edge);
+        this.vertexSet.add(destination);
+        this.vertexSet.add(source);
+
+        adjacencyList.computeIfAbsent(source, vertex -> new ArrayList<>()).add(edge);
         if (!isDirected) {
-            adjancencyList.computeIfAbsent(destination, vertex -> new ArrayList<>())
+            adjacencyList.computeIfAbsent(destination, vertex -> new ArrayList<>())
                     .add(new Edge(source, weight, destination));
         } else {
             /**
@@ -51,20 +58,20 @@ public class Graph {
              * this will make an empty arraylist to complete the adjancency list.
              */
 
-            adjancencyList.computeIfAbsent(destination, vertex -> new ArrayList<>());
+            adjacencyList.computeIfAbsent(destination, vertex -> new ArrayList<>());
         }
     }
 
     public List<Edge> getNeighbors(int source) {
-        return adjancencyList.getOrDefault(source, new ArrayList<>());
+        return adjacencyList.getOrDefault(source, new ArrayList<>());
     }
 
     public Set<Integer> getNodes() {
-        return adjancencyList.keySet();
+        return adjacencyList.keySet();
     }
 
     public int getTotalNodes() {
-        return adjancencyList.keySet().size();
+        return adjacencyList.keySet().size();
     }
 
     public List<Edge> getEdges() {
@@ -114,6 +121,28 @@ public class Graph {
 
     public boolean isAdjancenyMatrixInitialized() {
         return adjacencyMatrixInitialized;
+    }
+
+    public boolean addVertext(int vertex) {
+
+        boolean added = vertexSet.add(vertex);
+        if (added) {
+            adjacencyList.computeIfAbsent(vertex, key -> new ArrayList<>());
+        }
+        return added;
+    }
+
+    public boolean removeVertex(int vertex) {
+
+        boolean removed = vertexSet.remove(vertex);
+        if (removed) {
+
+            adjacencyList.remove(vertex);
+            for (Map.Entry<Integer, List<Edge>> entry : adjacencyList.entrySet()) {
+                entry.getValue().removeIf(edge -> edge.getDestination() == vertex || edge.getVertex() == vertex);
+            }
+        }
+        return removed;
     }
 
 }
