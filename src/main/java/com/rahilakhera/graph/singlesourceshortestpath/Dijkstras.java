@@ -67,22 +67,22 @@ public class Dijkstras {
         shortestPath.put(source, 0);
         paths.computeIfAbsent(source, vertex -> new ArrayList<>()).add(source);
 
-        queue.offer(new Edge(source, 0));
+        queue.offer(new Edge(source, source, 0));
         visited.add(source);
 
         while (!queue.isEmpty()) {
 
-            int node = queue.poll().getVertex();
+            int node = queue.poll().getDestination();
 
             for (Edge edge : graph.getNeighbors(node)) {
 
-                int currentWeight = shortestPath.getOrDefault(edge.getVertex(), Integer.MAX_VALUE);
+                int currentWeight = shortestPath.getOrDefault(edge.getDestination(), Integer.MAX_VALUE);
                 int newWeight = shortestPath.getOrDefault(node, Integer.MAX_VALUE) + edge.getWeight();
 
                 if (currentWeight > newWeight) {
 
-                    shortestPath.put(edge.getVertex(), newWeight);
-                    queue.offer(new Edge(edge.getVertex(), newWeight));
+                    shortestPath.put(edge.getDestination(), newWeight);
+                    queue.offer(new Edge(-1, edge.getDestination(), newWeight));
 
                     /*
                      * Updating paths.
@@ -90,11 +90,11 @@ public class Dijkstras {
                      * Add, the path of the parent node.
                      * Add, the node itself to complete the path.
                      */
-                    List<Integer> path = paths.get(edge.getVertex());
+                    List<Integer> path = paths.get(edge.getDestination());
                     path.clear();
                     path.addAll(paths.get(node));
-                    path.add(edge.getVertex());
-                    paths.put(edge.getVertex(), path);
+                    path.add(edge.getDestination());
+                    paths.put(edge.getDestination(), path);
                 }
             }
         }
