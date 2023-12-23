@@ -41,25 +41,28 @@ public class Dijkstras {
         Map<Integer, Integer> shortestPath = new HashMap<>();
 
         /**
-         * If graph is empty, return an empty list. 
+         * If graph is empty, return an empty list.
          */
         if (graph.getNodes().size() == 0) {
             return shortestPath;
         }
 
         /**
-         * Intialzing the paths structure to store the paths. 
+         * Intialzing the paths structure to store the paths.
          */
-
-        for (int i = 0; i < graph.getTotalNodes(); i++) {
-            paths.put(i, new ArrayList<>());
+        for (int node : graph.getNodes()) {
+            paths.put(node, new ArrayList<>());
         }
 
-         /**
-         * Intialize the distance to source vertex to 0 and other vertexes to infinity. 
-         * Also add source to its paths. 
+        // for (int i = 0; i < graph.getTotalNodes(); i++) {
+        // paths.put(i, new ArrayList<>());
+        // }
+
+        /**
+         * Intialize the distance to source vertex to 0 and other vertexes to infinity.
+         * Also add source to its paths.
          */
-        
+
         shortestPath.put(source, 0);
         paths.computeIfAbsent(source, vertex -> new ArrayList<>()).add(source);
 
@@ -79,12 +82,12 @@ public class Dijkstras {
 
                     shortestPath.put(edge.getVertex(), newWeight);
                     queue.offer(new Edge(edge.getVertex(), newWeight));
-                    
+
                     /*
-                     * Updating paths. 
-                     * First clear the exisiting path. 
-                     * Add, the path of the parent node. 
-                     * Add, the node itself to complete the path. 
+                     * Updating paths.
+                     * First clear the exisiting path.
+                     * Add, the path of the parent node.
+                     * Add, the node itself to complete the path.
                      */
                     List<Integer> path = paths.get(edge.getVertex());
                     path.clear();
