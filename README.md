@@ -9,3 +9,5 @@ Graph Algorithms
 3) All Pairs Shortest Path
    * Floyd Warshall Algorithm
    * Johnson's Algorithm
+4) Minimum Spanning Tree
+   * Kruskal's Algorithm
