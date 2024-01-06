@@ -60,4 +60,32 @@ public class Edge implements Comparable<Edge> {
         return builder.toString();
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + vertex;
+        result = prime * result + weight;
+        result = prime * result + destination;
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Edge other = (Edge) obj;
+        if (vertex != other.vertex)
+            return false;
+        if (weight != other.weight)
+            return false;
+        if (destination != other.destination)
+            return false;
+        return true;
+    }
+
 }
