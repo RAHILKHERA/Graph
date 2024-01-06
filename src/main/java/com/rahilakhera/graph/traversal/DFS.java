@@ -38,11 +38,9 @@ public class DFS {
     private void traversal(int source, List<Integer> result) {
 
         visited.add(source);
-
-        List<Edge> neighbors = graph.getNeighbors(source);
         result.add(source);
 
-        for (Edge neighbor : neighbors) {
+        for (Edge neighbor : graph.getNeighbors(source)) {
 
             if (!visited.contains(neighbor.getDestination())) {
                 traversal(neighbor.getDestination(), result);
