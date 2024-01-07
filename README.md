@@ -11,3 +11,4 @@ Graph Algorithms
    * Johnson's Algorithm
 4) Minimum Spanning Tree
    * Kruskal's Algorithm
+   * Prim's Algorithm
