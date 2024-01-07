@@ -125,7 +125,7 @@ public class Graph {
         return adjacencyMatrixInitialized;
     }
 
-    public boolean addVertext(int vertex) {
+    public boolean addVertex(int vertex) {
 
         boolean added = vertexSet.add(vertex);
         if (added) {
