@@ -63,7 +63,7 @@ public class KrushkalTest {
     @Test
     void testKruskalSingleNodeGraph() {
         Graph graph = new Graph();
-        graph.addVertext(0);
+        graph.addVertex(0);
 
         Krushkal kruskal = new Krushkal(graph);
         kruskal.generateMinimumSpannigTree();
