@@ -12,3 +12,5 @@ Graph Algorithms
 4) Minimum Spanning Tree
    * Kruskal's Algorithm
    * Prim's Algorithm
+5) Topological Sort
+   * Kahn's Algorithm
