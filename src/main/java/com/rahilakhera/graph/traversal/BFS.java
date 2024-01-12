@@ -39,20 +39,20 @@ public class BFS {
         }
 
         queue.offer(source);
+        visited.add(source);
 
         while (!queue.isEmpty()) {
 
             int node = queue.poll();
 
-            if (!visited.contains(node)) {
-                result.add(node);
-            }
-            visited.add(node);
+            result.add(node);
+
             List<Edge> neighbors = graph.getNeighbors(node);
             for (Edge neighbor : neighbors) {
 
                 if (!visited.contains(neighbor.getDestination())) {
                     queue.offer(neighbor.getDestination());
+                    visited.add(neighbor.getDestination());
                 }
             }
         }
