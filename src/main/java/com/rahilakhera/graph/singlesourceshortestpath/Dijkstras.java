@@ -21,7 +21,6 @@ import com.rahilakhera.graph.graph.Graph;
 public class Dijkstras {
 
     private Graph graph;
-    private Set<Integer> visited;
     private Map<Integer, List<Integer>> paths;
     private PriorityQueue<Edge> queue;
 
@@ -37,15 +36,14 @@ public class Dijkstras {
     public Map<Integer, Integer> findShortestPath(int source) {
 
         Map<Integer, Integer> shortestPath = new HashMap<>();
-
+        Set<Integer> visited = new HashSet<>();
         /**
          * If graph is empty, return an empty list.
          */
-        if (graph.getNodes().size() == 0) {
+        if (graph.getNodes().isEmpty()) {
             return shortestPath;
         }
 
-        this.visited = new HashSet<>();
         /**
          * Intialzing the paths structure to store the paths.
          */
@@ -54,10 +52,6 @@ public class Dijkstras {
         for (int node : graph.getNodes()) {
             paths.put(node, new ArrayList<>());
         }
-
-        // for (int i = 0; i < graph.getTotalNodes(); i++) {
-        // paths.put(i, new ArrayList<>());
-        // }
 
         /**
          * Intialize the distance to source vertex to 0 and other vertexes to infinity.

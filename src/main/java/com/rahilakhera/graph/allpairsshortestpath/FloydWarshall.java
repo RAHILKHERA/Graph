@@ -28,7 +28,7 @@ public class FloydWarshall {
 
     public int[][] getAllShortesPath() {
 
-        int N = graph.getTotalNodes();
+        int n = graph.getTotalNodes();
         int[][] adjacencyMatrix;
 
         if (!graph.isAdjancenyMatrixInitialized()) {
@@ -37,9 +37,9 @@ public class FloydWarshall {
 
         adjacencyMatrix = graph.getAdjancencyMatrix();
 
-        for (int k = 0; k < N; k++) {
-            for (int i = 0; i < N; i++) {
-                for (int j = 0; j < N; j++) {
+        for (int k = 0; k < n; k++) {
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
                     if (adjacencyMatrix[i][k] != Integer.MAX_VALUE &&
                             adjacencyMatrix[k][j] != Integer.MAX_VALUE &&
                             adjacencyMatrix[i][j] > adjacencyMatrix[i][k] + adjacencyMatrix[k][j]) {
@@ -59,7 +59,7 @@ public class FloydWarshall {
             }
         }
 
-        for (int i = 0; i < N; i++)
+        for (int i = 0; i < n; i++)
             if (adjacencyMatrix[i][i] < 0)
                 throw new RuntimeException("FlyodWarshall, Negative cycle found.");
 

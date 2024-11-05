@@ -27,7 +27,7 @@ public class DFS {
     public List<Integer> dfs(int source) {
         List<Integer> result = new LinkedList<>();
 
-        if (graph.getNodes().size() == 0) {
+        if (graph.getNodes().isEmpty()) {
             return result;
         }
 
